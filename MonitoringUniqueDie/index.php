@@ -31,10 +31,43 @@
         .table-input {
             width: 100px;
         }
+
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid #444;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: #f0f0f0 !important;
+        }
     </style>
 </head>
 
 <body class="bg-light">
+    <!-- Navbar start -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html">Unique Die</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../CheckSheet/index.php">Check Sheet</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar end -->
+
 
     <div class="container mt-5">
         <h2 class="text-center mb-4">Monitoring Unique Die</h2>

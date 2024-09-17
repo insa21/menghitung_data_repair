@@ -10,7 +10,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
 // Query to fetch data from unique_die_shots
@@ -28,12 +28,25 @@ echo '
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check Sheet Total Unique Die</title>
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f9;
             color: #333;
         }
+            
+    .navbar {
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid #444;
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: #f0f0f0 !important;
+    }
+
         .container {
             display: flex;
             justify-content: space-between;
@@ -92,6 +105,28 @@ echo '
 </head>
 <body>
 
+  <!-- Navbar start -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">Unique Die</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="../index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../CheckSheet/index.php">Check Sheet</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar end -->
+
 <div class="container">
     <!-- Main Check Sheet Table -->
     <div class="left-table">
@@ -114,8 +149,8 @@ echo '
 // Fetch data from database and output rows in table
 $no = 1;
 if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
-    echo '
+    while ($row = $result->fetch_assoc()) {
+        echo '
         <tr>
             <td>' . $no++ . '</td>
             <td>' . $row["shift"] . '</td>
@@ -127,15 +162,15 @@ if ($result->num_rows > 0) {
             <td>' . $row["total_shot"] . '</td>
         </tr>';
 
-    // Calculate total shots per Unique Die
-    if (isset($unique_die_totals[$row["unique_die"]])) {
-      $unique_die_totals[$row["unique_die"]] += $row["total_shot"];
-    } else {
-      $unique_die_totals[$row["unique_die"]] = $row["total_shot"];
+        // Calculate total shots per Unique Die
+        if (isset($unique_die_totals[$row["unique_die"]])) {
+            $unique_die_totals[$row["unique_die"]] += $row["total_shot"];
+        } else {
+            $unique_die_totals[$row["unique_die"]] = $row["total_shot"];
+        }
     }
-  }
 } else {
-  echo '<tr><td colspan="8">No data available</td></tr>';
+    echo '<tr><td colspan="8">No data available</td></tr>';
 }
 
 echo '
@@ -159,7 +194,7 @@ echo '
 // Display total shots for each Unique Die
 ksort($unique_die_totals); // Sort by Unique Die (UDN1, UDN2, etc.)
 foreach ($unique_die_totals as $unique_die => $total_shot) {
-  echo '
+    echo '
     <tr>
         <td>Total Shot ' . $unique_die . '</td>
         <td>' . $total_shot . '</td>

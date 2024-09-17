@@ -17,6 +17,17 @@
       margin-bottom: 30px;
     }
 
+    .navbar {
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid #444;
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: #f0f0f0 !important;
+    }
+
+
     .form-wrap {
       background: #fff;
       padding: 20px;
@@ -44,39 +55,27 @@
 </head>
 
 <body>
+  <!-- Navbar start -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="../index.html">UNIQUE DIE</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="../index.html">Unique Die</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/">Home</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="../index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/CheckSheet">Check Sheet</a>
+            <a class="nav-link" href="../CheckSheet/index.php">Check Sheet</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Others
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="/contact">Coming</a></li>
-              <li><a class="dropdown-item" href="/kupon">Soon</a></li>
-            </ul>
-          </li> -->
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </nav>
+  <!-- Navbar end -->
 
   <!-- Form Layout -->
   <div class="container mt-5">
