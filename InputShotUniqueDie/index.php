@@ -125,7 +125,7 @@
         </div>
 
         <!-- Value Selection Dropdown -->
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="value_die" class="form-label">Select Die Value:</label>
           <select id="value_die" name="value_die" class="form-select">
             <option value="A1N">A1N</option>
@@ -135,7 +135,7 @@
             <option value="C3N">C3N</option>
             <option value="C4N">C4N</option>
           </select>
-        </div>
+        </div> -->
 
 
         <!-- Number Input -->

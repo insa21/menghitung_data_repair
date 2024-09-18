@@ -13,8 +13,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query to fetch data from unique_die_shots
-$sql = "SELECT shift, mesin_dc, general_die, tanggal, unique_die, value_die, total_shot FROM unique_die_shots ORDER BY unique_die, value_die ASC";
+// Query to fetch data from unique_die_shots where total_shot > 0
+$sql = "SELECT shift, mesin_dc, general_die, tanggal, unique_die, total_shot FROM unique_die_shots WHERE total_shot > 0 ORDER BY unique_die, value_die ASC";
 $result = $conn->query($sql);
 
 // Initialize array to store total shots for each Unique Die
@@ -140,7 +140,6 @@ echo '
                     <th>General Die</th>
                     <th>Tanggal</th>
                     <th>Unique Die N</th>
-                    <th>Value Die</th>
                     <th>Total Shot</th>
                 </tr>
             </thead>
@@ -158,7 +157,6 @@ if ($result->num_rows > 0) {
             <td>' . $row["general_die"] . '</td>
             <td>' . date("d/m/Y", strtotime($row["tanggal"])) . '</td>
             <td>' . $row["unique_die"] . '</td>
-            <td>' . $row["value_die"] . '</td>
             <td>' . $row["total_shot"] . '</td>
         </tr>';
 
@@ -170,7 +168,7 @@ if ($result->num_rows > 0) {
         }
     }
 } else {
-    echo '<tr><td colspan="8">No data available</td></tr>';
+    echo '<tr><td colspan="7">No data available</td></tr>';
 }
 
 echo '
@@ -191,14 +189,16 @@ echo '
             </thead>
             <tbody>';
 
-// Display total shots for each Unique Die
+// Display total shots for each Unique Die only if total shots > 0
 ksort($unique_die_totals); // Sort by Unique Die (UDN1, UDN2, etc.)
 foreach ($unique_die_totals as $unique_die => $total_shot) {
-    echo '
-    <tr>
-        <td>Total Shot ' . $unique_die . '</td>
-        <td>' . $total_shot . '</td>
-    </tr>';
+    if ($total_shot > 0) { // Check if total shot is greater than 0
+        echo '
+        <tr>
+            <td>Total Shot ' . $unique_die . '</td>
+            <td>' . $total_shot . '</td>
+        </tr>';
+    }
 }
 
 echo '
@@ -211,3 +211,4 @@ echo '
 </html>';
 
 $conn->close();
+?>

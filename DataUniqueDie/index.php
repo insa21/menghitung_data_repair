@@ -97,7 +97,7 @@
         const tablesContainer = document.getElementById('tablesContainer');
         tablesContainer.innerHTML = ''; // Kosongkan container sebelum menambah tabel
 
-        // Step 1: Group data by unique_die and sort keys
+        // Step 1: Group data by unique_die
         const groupedData = data.reduce((acc, curr) => {
           if (!acc[curr.unique_die]) {
             acc[curr.unique_die] = [];
@@ -116,42 +116,54 @@
         sortedUniqueDies.forEach((uniqueDie, index) => {
           const group = groupedData[uniqueDie];
           let tableRows = '';
+          let hasNonZero = false;
+
+          // Check if there is any non-zero total_shot
+          group.forEach(item => {
+            if (item.total_shot > 0) {
+              hasNonZero = true;
+            }
+          });
 
           // Sort the data within the group by the key names
           group.sort((a, b) => {
             const order = ['A1N', 'B1N', 'C1N', 'C2N', 'C3N', 'C4N'];
             return order.indexOf(a.value_die) - order.indexOf(b.value_die);
           }).forEach(item => {
-            tableRows += `
-              <tr>
-                <td><input type="text" class="form-control table-input" value="${item.value_die}" readonly></td>
-                <td><input type="number" class="form-control table-input" value="${item.total_shot}" readonly></td>
-              </tr>
-            `;
+            if (item.total_shot > 0 || !hasNonZero) { // Tambahkan pengecekan di sini
+              tableRows += `
+                <tr>
+                  <td><input type="text" class="form-control table-input" value="${item.value_die}" readonly></td>
+                  <td><input type="number" class="form-control table-input" value="${item.total_shot}" readonly></td>
+                </tr>
+              `;
+            }
           });
 
-          const tableHTML = `
-            <div class="col-md-4 mb-4"> <!-- Menggunakan grid Bootstrap, 3 kolom per baris -->
-              <div class="card h-100"> <!-- h-100 untuk membuat tinggi kartu konsisten -->
-                <div class="card-header bg-info text-white">Unique Die: ${uniqueDie}</div>
-                <div class="card-body">
-                  <table class="table table-bordered uniqueTable">
-                    <thead>
-                      <tr>
-                        <th>Value Die</th>
-                        <th>Total Shot</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      ${tableRows}
-                    </tbody>
-                  </table>
+          if (tableRows) {
+            const tableHTML = `
+              <div class="col-md-4 mb-4"> <!-- Menggunakan grid Bootstrap, 3 kolom per baris -->
+                <div class="card h-100"> <!-- h-100 untuk membuat tinggi kartu konsisten -->
+                  <div class="card-header bg-info text-white">Unique Die: ${uniqueDie}</div>
+                  <div class="card-body">
+                    <table class="table table-bordered uniqueTable">
+                      <thead>
+                        <tr>
+                          <th>Value Die</th>
+                          <th>Total Shot</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${tableRows}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-          `;
+            `;
 
-          tablesContainer.innerHTML += tableHTML;
+            tablesContainer.innerHTML += tableHTML;
+          }
         });
 
         Swal.close();
